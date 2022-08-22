@@ -1,0 +1,49 @@
+.img-cover{
+    object-fit: cover;
+    width: 200px;
+    height: 100px;
+}
+.img-thumb{
+    object-fit: cover;
+    height: 125px;
+    width: 100px ;
+}
+.img-inst{
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+}
+.img-multiple{
+    border-radius: 10px;
+    margin:5px;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    border: 1px solid #d4d4d4;
+}
+.img-multiple-thumbnail{
+    border-radius: 10px;
+    margin:5px;
+    object-fit: cover;
+    width: 200px;
+    height: 100px;
+    border: 1px solid #d4d4d4;
+}
+.but-1{
+    line-height: 0px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right:0px;
+    display:inline-block;
+    position:relative;
+}
+.but-1 a{
+
+    border-radius: 5px;
+    position:absolute;
+    top: 5px;
+    left: 5px;
+}
+.but-1 a:hover{
+    background-color: #d81042 !important;
+}

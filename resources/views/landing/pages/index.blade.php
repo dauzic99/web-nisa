@@ -7,9 +7,13 @@
     @include('landing.layouts.partials.slider')
 @endsection
 
+@section('modals')
+    @include('landing.modals.ispu')
+@endsection
+
 @section('content')
     <!-- Content
-                                                                                                                                      ============================================= -->
+                                                                                                                                                                  ============================================= -->
     <section id="content">
         <div class="content-wrap p-0">
 
@@ -136,3 +140,7 @@
         </div>
     </section><!-- #content end -->
 @endsection
+
+
+@push('js')
+@endpush

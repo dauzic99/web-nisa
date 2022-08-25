@@ -31,6 +31,7 @@
 
     @include('landing.layouts.partials.scripts')
 
+    @yield('modals')
 </body>
 
 </html>

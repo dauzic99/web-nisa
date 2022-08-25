@@ -13,9 +13,9 @@
                                 possimus voluptates perferendis nesciunt, non optio repellendus deserunt impedit fugit
                                 alias accusantium ut quas, repudiandae officia dolorem. Cumque, error explicabo!</p>
                         </div>
-                        <a href="#modal-register" data-lightbox="inline"
-                            class="button button-large fw-semibold button-rounded ls0 nott ms-0">Nilai Kami Disini</a>
-
+                        <button class="button button-large fw-semibold button-rounded ls0 nott ms-0"
+                            data-bs-toggle="modal" data-bs-target=".bs-example-modal-centered">Lihat Table
+                            ISPU</button>
 
                     </div>
                 </div>

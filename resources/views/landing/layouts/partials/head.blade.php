@@ -35,7 +35,7 @@
 <link rel="shortcut icon" href="{{ asset('images/icon-dprd-logo.png') }}" type="image/x-icon">
 <!-- Document Title
 ============================================= -->
-<title>E-IKM - DPRD Kalimantan Timur @yield('title')</title>
+<title>Informasi kualitas udara UNMUL @yield('title')</title>
 
 
 @stack('css-plus')

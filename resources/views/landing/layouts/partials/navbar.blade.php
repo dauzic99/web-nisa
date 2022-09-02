@@ -44,7 +44,7 @@
                         </li>
                         {{-- <li class="menu-item {{ request()->segment(1) == 'ikm' ? 'current' : '' }}">
                             <a class="menu-link" href="{{ route('ikm.index') }}">
-                                <div>IKM</div>
+                                <div>SKRIPSI</div>
                             </a>
                         </li> --}}
                     </ul>

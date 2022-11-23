@@ -8,9 +8,9 @@
 ============================================= -->
                 <div id="logo">
                     <a href="{{ route('landing.index') }}" class="standard-logo"><img
-                            src="{{ asset('images/navbar-logo-transparent.png') }}" alt="DPRD LOGO"></a>
+                            src="{{ asset('images/logo-unmul.png') }}" alt="UNMUL LOGO"></a>
                     <a href="{{ route('landing.index') }}" class="retina-logo"><img
-                            src="{{ asset('images/navbar-logo-transparent.png') }}" alt="DPRD LOGO"></a>
+                            src="{{ asset('images/logo-unmul.png') }}" alt="UNMUL LOGO"></a>
                 </div>
                 <!-- #logo end -->
 

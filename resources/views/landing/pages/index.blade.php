@@ -67,16 +67,26 @@
                                 <h5 class="fw-normal mb-1">Fakultas Teknik</h5>
                                 <div class="line my-2"></div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Nilai ISPU</h7>
+                                    <h7 class="fw-normal mb-1">Nilai ISPU: 90</h7>
                                 </div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Tanggal</h7>
+                                    <h7 class="fw-normal mb-1">Tanggal:{{date("m-d-Y")}}</h7>
                                 </div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Kriteria</h7>
+                                    <h7 class="fw-normal mb-1">Kriteria: Sedang</h7>
                                 </div>
                                 <div>
-                                    <h8 style="text-decoration: underline" >Klik disini untuk melihat detail</h8>
+                                <button type="submit" class="btn btn-primary btn-block" data-toggle="modal" data-target="#contohModal">Get Started</button>
+                                <div class="modal fade" id="contohModal" role="dialog" arialabelledby="modalLabel" area-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+ 
+                     <img src="/asset/sukses.png" width="" height="" alt="...">
+                  </div>
+                </div>
+              </div>
+            </div>
                                 </div>
                             </div>
                             </div>
@@ -88,13 +98,13 @@
                                 <h5 class="fw-normal mb-1">Matematika dan Ilmu Pengetahuan Alam</h5>
                                 <div class="line my-2"></div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Nilai ISPU</h7>
+                                    <h7 class="fw-normal mb-1">Nilai ISPU: 77</h7>
                                 </div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Tanggal</h7>
+                                    <h7 class="fw-normal mb-1">Tanggal: {{date("m-d-Y")}}</h7>
                                 </div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Kriteria</h7>
+                                    <h7 class="fw-normal mb-1">Kriteria: Sedang</h7>
                                 </div>
                                 <div>
                                     <h8 style="text-decoration: underline" >Klik disini untuk melihat detail</h8>
@@ -114,7 +124,7 @@
                                     <h7 class="fw-normal mb-1">Nilai ISPU</h7>
                                 </div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Tanggal</h7>
+                                    <h7 class="fw-normal mb-1">Tanggal: {{date("m-d-Y")}}</h7>
                                 </div>
                                 <div>
                                     <h7 class="fw-normal mb-1">Kriteria</h7>
@@ -129,13 +139,13 @@
                                 <h5 class="fw-normal mb-1">Fakultas Ekonomi dan Bisnisk</h5>
                                 <div class="line my-2"></div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Nilai ISPU</h7>
+                                    <h7 class="fw-normal mb-1">Nilai ISPU: 170</h7>
                                 </div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Tanggal</h7>
+                                    <h7 class="fw-normal mb-1">Tanggal: {{date("d-M-Y")}}</h7>
                                 </div>
                                 <div>
-                                    <h7 class="fw-normal mb-1">Kriteria</h7>
+                                    <h7 class="fw-normal mb-1">Kriteria : Tidak Sehat</h7>
                                 </div>
                                 <div>
                                     <h8 style="text-decoration: underline" >Klik disini untuk melihat detail</h8>

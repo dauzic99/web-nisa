@@ -1,5 +1,5 @@
 <link rel="canonical" href="Https://preview.keenthemes.com/metronic8" />
-		<link rel="shortcut icon" href="{{ asset('images/icon-dprd-logo.png') }}" type="image/x-icon">
+		<link rel="shortcut icon" href="{{ asset('images/logo-unmul.png') }}" type="image/x-icon">
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
 		<!--end::Fonts-->

@@ -1,5 +1,5 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="author" content="DPRD Kaltim" />
+<meta name="author" content="Skripsi s" />
 
 <!-- Stylesheets
 ============================================= -->
@@ -32,7 +32,7 @@
 <link rel="stylesheet" href="{{ asset('canvas/css/colors.php?color=209EBB') }}" type="text/css" />
 
 
-<link rel="shortcut icon" href="{{ asset('images/icon-dprd-logo.png') }}" type="image/x-icon">
+<link rel="shortcut icon" href="{{ asset('images/icon.png') }}" type="image/x-icon">
 <!-- Document Title
 ============================================= -->
 <title>Informasi kualitas udara UNMUL @yield('title')</title>

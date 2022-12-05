@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade bs-detail-modal-centered" tabindex="-1" role="dialog" aria-labelledby="centerModalLabel"
+<div class="modal fade bs-detail1-modal-centered" tabindex="-1" role="dialog" aria-labelledby="centerModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -15,7 +15,7 @@
                <br> NO2 : 89
                <br> O2  : 65
             </h5>
-               <canvas id="detailChart"></canvas>
+               <canvas id="detail1Chart"></canvas>
             </div>
         </div>
     </div>

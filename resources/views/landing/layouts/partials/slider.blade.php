@@ -12,7 +12,8 @@
                         </div>
                         <button class="button button-large fw-semibold button-rounded ls0 nott ms-0"
                             data-bs-toggle="modal" data-bs-target=".bs-example-modal-centered">Lihat Table
-                            ISPU</button>
+                            ISPU
+                        </button>
 
                     </div>
                 </div>

@@ -17,35 +17,8 @@ class LandingController extends Controller
 
     public function index()
     {
-        $period = Period::where('is_active', 1)->latest()->first();
-        $startMonth = 1;
-        $endMonth = 6;
-        if ($period->period == 2) {
-            $startMonth = 7;
-            $endMonth = 12;
-        }
-        $from = date($period->year . '-' . $startMonth . '-01');
 
-        $endDate = Carbon::createFromDate($period->year, $endMonth, 1);
-        $to = $endDate->endOfMonth()->toDateString();
-
-        $datas = Respondent::whereBetween('created_at', [$from, $to])->get();
-        $ids = Respondent::whereBetween('created_at', [$from, $to])->pluck('id')->toArray();
-
-
-        if ($datas->count() != 0) {
-            //per unsur
-            $services = Service::all();
-            $avg_service = $this->getAvgService($services, $datas, $ids);
-            $indeks = number_format(array_sum($avg_service) / count($avg_service), 2);
-        } else {
-            $indeks = 0;
-        }
-
-
-        return view('landing.pages.index', [
-            'indeks' => $indeks,
-        ]);
+        return view('landing.pages.index', []);
     }
     public function kuesioner()
     {

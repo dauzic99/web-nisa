@@ -5,18 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Suggestion extends Model
+class Reading extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'content',
-        'respondent_id',
+        'PM10',
+        'CO',
+        'NO2',
+        'O2',
+        'faculty_id',
     ];
 
-
-    public function respondent()
+    public function faculty()
     {
-        return $this->belongsTo(Respondent::class);
+        return $this->hasMany(Faculty::class);
     }
 }

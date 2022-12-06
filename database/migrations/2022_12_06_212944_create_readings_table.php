@@ -13,14 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('answers', function (Blueprint $table) {
+        Schema::create('readings', function (Blueprint $table) {
             $table->id();
-            $table->string('answer');
-            $table->double('point');
-            $table->foreignId('question_id')
-                ->constrained()
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+            $table->float('PM10');
+            $table->float('CO');
+            $table->float('NO2');
+            $table->float('O2');
+            $table->unsignedBigInteger('faculty_id');
             $table->timestamps();
         });
     }
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answers');
+        Schema::dropIfExists('readings');
     }
 };

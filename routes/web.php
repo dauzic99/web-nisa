@@ -22,6 +22,10 @@ use App\Http\Controllers\PeriodController;
 */
 
 Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::post('/showDetail', [LandingController::class, 'showDetail'])->name('landing.showDetail');
+
+
+
 Route::get('/kuesioner', [LandingController::class, 'kuesioner'])->name('kuesioner');
 Route::get('/kuesioner/download', [LandingController::class, 'kuesioner_download'])->name('kuesioner.download');
 // Route::get('/ikm', [LandingController::class, 'ikm_index'])->name('ikm.index');

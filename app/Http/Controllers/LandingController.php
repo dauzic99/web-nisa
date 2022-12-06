@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faculty;
 use App\Models\Period;
 use App\Models\Question;
 use App\Models\Respondent;
@@ -17,9 +18,20 @@ class LandingController extends Controller
 
     public function index()
     {
-
-        return view('landing.pages.index', []);
+        $faculties = Faculty::all();
+        return view('landing.pages.index', [
+            'faculties' => $faculties
+        ]);
     }
+
+    public function showDetail(Request $request)
+    {
+        $data = Faculty::findOrFail($request->id);
+        return View::make("landing.modals.detail")
+            ->with("data", $data)
+            ->render();
+    }
+
     public function kuesioner()
     {
         $services = Service::with('questions')->get();

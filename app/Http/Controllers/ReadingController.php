@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreAnswerRequest;
-use App\Http\Requests\UpdateAnswerRequest;
-use App\Models\Answer;
+use App\Models\Reading;
+use App\Http\Requests\StoreReadingRequest;
+use App\Http\Requests\UpdateReadingRequest;
 
-class AnswerController extends Controller
+class ReadingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class AnswerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreAnswerRequest  $request
+     * @param  \App\Http\Requests\StoreReadingRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAnswerRequest $request)
+    public function store(StoreReadingRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class AnswerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Answer  $answer
+     * @param  \App\Models\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function show(Answer $answer)
+    public function show(Reading $reading)
     {
         //
     }
@@ -53,10 +53,10 @@ class AnswerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Answer  $answer
+     * @param  \App\Models\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function edit(Answer $answer)
+    public function edit(Reading $reading)
     {
         //
     }
@@ -64,11 +64,11 @@ class AnswerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateAnswerRequest  $request
-     * @param  \App\Models\Answer  $answer
+     * @param  \App\Http\Requests\UpdateReadingRequest  $request
+     * @param  \App\Models\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAnswerRequest $request, Answer $answer)
+    public function update(UpdateReadingRequest $request, Reading $reading)
     {
         //
     }
@@ -76,10 +76,10 @@ class AnswerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Answer  $answer
+     * @param  \App\Models\Reading  $reading
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Answer $answer)
+    public function destroy(Reading $reading)
     {
         //
     }

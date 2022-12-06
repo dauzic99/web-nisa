@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Service>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Faculty>
  */
-class ServiceFactory extends Factory
+class FacultyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,7 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
-            // 'point' => $this->faker->numberBetween(0, 100),
+            //
         ];
     }
 }

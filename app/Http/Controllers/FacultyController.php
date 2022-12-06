@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreSuggestionRequest;
-use App\Http\Requests\UpdateSuggestionRequest;
-use App\Models\Suggestion;
+use App\Models\Faculty;
+use App\Http\Requests\StoreFacultyRequest;
+use App\Http\Requests\UpdateFacultyRequest;
 
-class SuggestionController extends Controller
+class FacultyController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,10 +31,10 @@ class SuggestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreSuggestionRequest  $request
+     * @param  \App\Http\Requests\StoreFacultyRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreSuggestionRequest $request)
+    public function store(StoreFacultyRequest $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class SuggestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Suggestion  $suggestion
+     * @param  \App\Models\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function show(Suggestion $suggestion)
+    public function show(Faculty $faculty)
     {
         //
     }
@@ -53,10 +53,10 @@ class SuggestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Suggestion  $suggestion
+     * @param  \App\Models\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function edit(Suggestion $suggestion)
+    public function edit(Faculty $faculty)
     {
         //
     }
@@ -64,11 +64,11 @@ class SuggestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateSuggestionRequest  $request
-     * @param  \App\Models\Suggestion  $suggestion
+     * @param  \App\Http\Requests\UpdateFacultyRequest  $request
+     * @param  \App\Models\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateSuggestionRequest $request, Suggestion $suggestion)
+    public function update(UpdateFacultyRequest $request, Faculty $faculty)
     {
         //
     }
@@ -76,10 +76,10 @@ class SuggestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Suggestion  $suggestion
+     * @param  \App\Models\Faculty  $faculty
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Suggestion $suggestion)
+    public function destroy(Faculty $faculty)
     {
         //
     }

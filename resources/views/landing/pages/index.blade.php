@@ -9,12 +9,14 @@
 
 @section('modals')
     @include('landing.modals.ispu')
-    @include('landing.modals.test')
+    <div id="responseModal">
+
+    </div>
 @endsection
 
 @section('content')
     <!-- Content
-                                                                                                                                                                                                          ============================================= -->
+                                                                                                                                                                                                                                                                                                                      ============================================= -->
     <section id="content">
         <div class="content-wrap p-0">
 
@@ -62,108 +64,36 @@
                                         <div class="col-12 center px-5 py-3">
                                             <h3>Informasi Kualitas udara per Fakultas</h3>
                                             <div class="row">
-                                                <div class="col-md-6 mt-4 mt-sm-0">
-                                                    <div class="bg-white center px-5 py-3 border">
-                                                        <h5 class="fw-normal mb-1">Fakultas Teknik</h5>
-                                                        <div class="line my-2"></div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Nilai ISPU: 90</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Tanggal:{{ date('m-d-Y') }}</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Kriteria: Sedang</h7>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                class="button button-large fw-semibold button-rounded ls0 nott ms-0"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target=".bs-detail-modal-centered">Klik untuk
-                                                                melihat detail
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 mt-4 mt-sm-0">
-                                                    <div class="bg-white center px-5 py-3 border">
-                                                        <h5 class="fw-normal mb-1">Fakultas Matematika dan Ilmu Pengetahuan
-                                                            Alam</h5>
-                                                        <div class="line my-2"></div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Nilai ISPU: 170</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Tanggal: {{ date('d-m-Y') }}</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Kriteria : Tidak Sehat</h7>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                class="button button-large fw-semibold button-rounded ls0 nott ms-0"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target=".bs-detail1-modal-centered">Klik untuk
-                                                                melihat detail
-                                                            </button>
+                                                @forelse ($faculties as $faculty)
+                                                    <div class="col-md-6 mt-4 mt-sm-0">
+                                                        <div class="bg-white center px-5 py-3 border">
+                                                            <h5 class="fw-normal mb-1">{{ $faculty->name }}</h5>
+                                                            <div class="line my-2"></div>
+                                                            <div>
+                                                                <h7 class="fw-normal mb-1">Nilai ISPU:
+                                                                    {{ $faculty->getISPU() }}</h7>
+                                                            </div>
+                                                            <div>
+                                                                <h7 class="fw-normal mb-1">
+                                                                    Tanggal:{{ $faculty->getLatestDate() }}</h7>
+                                                            </div>
+                                                            <div>
+                                                                <h7 class="fw-normal mb-1">Kriteria: Sedang</h7>
+                                                            </div>
+                                                            <div>
+                                                                <button
+                                                                    class="button button-large fw-semibold button-rounded ls0 nott ms-0 detailInfo"
+                                                                    data-id="{{ $faculty->id }}">
+                                                                    Klik
+                                                                    untuk
+                                                                    melihat detail
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @empty
+                                                @endforelse
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-6 mt-4 mt-sm-0">
-                                                    <div class="bg-white center px-5 py-3 border">
-                                                        <h5 class="fw-normal mb-1">Fakultas Ilmu Sosial dan Ilmu Politik
-                                                        </h5>
-                                                        <div class="line my-2"></div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Nilai ISPU</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Tanggal: {{ date('m-d-Y') }}</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Kriteria</h7>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                class="button button-large fw-semibold button-rounded ls0 nott ms-0"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target=".bs-detail-modal-centered">Klik untuk
-                                                                melihat detail
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-6 mt-4 mt-sm-0">
-                                                    <div class="bg-white center px-5 py-3 border">
-                                                        <h5 class="fw-normal mb-1">Fakultas Ekonomi dan Bisnis</h5>
-                                                        <div class="line my-2"></div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Nilai ISPU: 170</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Tanggal: {{ date('d-m-Y') }}</h7>
-                                                        </div>
-                                                        <div>
-                                                            <h7 class="fw-normal mb-1">Kriteria : Tidak Sehat</h7>
-                                                        </div>
-                                                        <div>
-                                                            <button
-                                                                class="button button-large fw-semibold button-rounded ls0 nott ms-0"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target=".bs-detail-modal-centered">Klik untuk
-                                                                melihat detail
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
                                         </div>
                                     </div>
                                 </div>
@@ -237,30 +167,31 @@
                 },
 
             ];
-
-            var dataDetail = [{
-                    label: "PPM",
-                    data: [20.5, 30, 70.5, 50.6],
-                    backgroundColor: ['#009ef7',
-                        '#50CD89',
-                        '#F1416C',
-                        '#003f5c',
-                    ],
-                    borderColor: ['#009ef7',
-                        '#50CD89',
-                        '#F1416C',
-                        '#003f5c',
-                    ],
-                },
-
-            ];
-
-            barChart(labels, dataDetail, "detail1Chart", "Data Test");
             doughnutChart(labels, dataBuruk, "burukChart", "Data Test");
             doughnutChart(labels, dataBaik, "baikChart", "Data Test");
+            // barChart(labels, dataDetail, "detail1Chart", "Data Test");
 
 
+
+            $(document).on('click', '.detailInfo', function() {
+                showDetail($(this).data('id'));
+            });
         });
+
+        function showDetail(id) {
+            $.ajax({
+                type: "POST",
+                url: "{{ route('landing.showDetail') }}",
+                data: {
+                    id: id,
+                    _token: "{{ csrf_token() }}",
+                },
+                success: function(response) {
+                    $('#responseModal').html(response);
+                    $('#detailFacultyModal').modal('show');
+                }
+            });
+        }
 
 
         function barChart(labels, datas, element, title) {

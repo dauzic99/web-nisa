@@ -13,12 +13,12 @@
                             src="{{ asset('images/logo-unmul.png') }}" alt="UNMUL LOGO"></a>
                 </div>
                 <!-- #logo end -->
-
+                {{--
                 <div class="header-misc">
                     <a href="{{ route('kuesioner') }}"
                         class="button button-small fw-semibold button-border button-rounded ls0 fw-medium nott">Nilai
                         Kami Disini</a>
-                </div>
+                </div> --}}
 
                 <div id="primary-menu-trigger">
                     <svg class="svg-trigger" viewBox="0 0 100 100">

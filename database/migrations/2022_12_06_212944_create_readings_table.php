@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('PM10');
             $table->float('CO');
             $table->float('NO2');
-            $table->float('O2');
+            $table->float('O3');
             $table->unsignedBigInteger('faculty_id');
             $table->timestamps();
         });

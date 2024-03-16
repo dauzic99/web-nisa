@@ -13,10 +13,13 @@
 
     </div>
 @endsection
+@push('plugin-css')
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
+@endpush
 
 @section('content')
     <!-- Content
-                                                                                                                                                                                                                                                                                                                      ============================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                  ============================================= -->
     <section id="content">
         <div class="content-wrap p-0">
 
@@ -65,7 +68,7 @@
                                             <h3>Informasi Kualitas udara per Fakultas</h3>
                                             <div class="row">
                                                 @forelse ($faculties as $faculty)
-                                                    <div class="col-md-6 mt-4 mt-sm-0">
+                                                    <div class="col-lg-6 mt-4 mt-sm-0">
                                                         <div class="bg-white center px-5 py-3 border">
                                                             <h5 class="fw-normal mb-1">{{ $faculty->name }}</h5>
                                                             <div class="line my-2"></div>
@@ -80,14 +83,17 @@
                                                             <div>
                                                                 <h7 class="fw-normal mb-1">Kriteria: Sedang</h7>
                                                             </div>
-                                                            <div>
-                                                                <button
-                                                                    class="button button-large fw-semibold button-rounded ls0 nott ms-0 detailInfo"
-                                                                    data-id="{{ $faculty->id }}">
-                                                                    Klik
-                                                                    untuk
-                                                                    melihat detail
-                                                                </button>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <button
+                                                                        class="button button-large fw-semibold button-rounded ls0 nott ms-0 detailInfo"
+                                                                        data-id="{{ $faculty->id }}">
+                                                                        Klik
+                                                                        untuk
+                                                                        melihat detail
+                                                                    </button>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -110,13 +116,14 @@
 @push('js')
     <script src="{{ asset('canvas/js/chart.js') }}"></script>
     <script src="{{ asset('canvas/js/chart-utils.js') }}"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
             var labels = [
                 "PM10",
                 "CO",
                 "NO2",
-                "O2"
+                "O3"
             ];
             var dataTest = [{
                     label: "PPM",
@@ -234,9 +241,7 @@
         }
 
         function doughnutChart(labels, datas, element, title) {
-            // console.log(labels);
-            // console.log(datas);
-            // console.log(datas);
+
             var ctx = document.getElementById(element).getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -265,6 +270,44 @@
                             },
                             gridLines: {
                                 display: false
+                            }
+                        }]
+                    },
+                }
+            });
+        }
+
+        function lineChart(labels, datas, element, title) {
+            var ctx = document.getElementById(element).getContext('2d');
+            console.log(ctx);
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: datas
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: title
+                    },
+                    scales: {
+                        yAxes: [{
+                            gridLines: {
+                                drawBorder: false,
+                                color: '#f2f2f2',
+                            },
+                        }],
+                        xAxes: [{
+
+                            gridLines: {
+                                display: false
+                            },
+                            ticks: {
+                                display: true // Set to true to display the labels
                             }
                         }]
                     },

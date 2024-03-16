@@ -13,7 +13,7 @@ class Reading extends Model
         'PM10',
         'CO',
         'NO2',
-        'O2',
+        'O3',
         'faculty_id',
     ];
 

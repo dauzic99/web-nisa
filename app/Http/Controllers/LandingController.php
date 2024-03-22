@@ -31,19 +31,21 @@ class LandingController extends Controller
         $faculty = Faculty::findOrFail($request->id);
         $data = $antares->fetchLatestData();
         $datas = $antares->fetchData();
+
         // Initialize arrays to store daily data for each parameter
         // Initialize arrays to store sums and counts for calculating averages
         $pm10Sums = $coSums = $no2Sums = $o3Sums = [];
         $pm10Counts = $coCounts = $no2Counts = $o3Counts = [];
 
-        $today = Carbon::today()->format('Y-m-d');
+        // Determine the latest date from the dataset
+        $latestDate = Carbon::createFromFormat('d-m-Y H:i:s', collect($datas)->max('timestamp'))->format('Y-m-d');
 
         foreach ($datas as $d) {
             $dateTime = Carbon::createFromFormat('d-m-Y H:i:s', $d['timestamp']);
             $dateKey = $dateTime->format('Y-m-d');
 
-            // Filter out only today's data
-            if ($dateKey === $today) {
+            // Filter out only the data for the latest date
+            if ($dateKey === $latestDate) {
                 // Get the hour to use as the key
                 $hourKey = $dateTime->format('H');
 
@@ -80,7 +82,7 @@ class LandingController extends Controller
             $no2Averages[] = $no2Sums[$hour] / $no2Counts[$hour];
             $o3Averages[] = $o3Sums[$hour] / $o3Counts[$hour];
         }
-        // dd($pm10Data);
+
         return View::make("landing.modals.detail")
             ->with("faculty", $faculty)
             ->with("data", $data)
@@ -90,6 +92,7 @@ class LandingController extends Controller
             ->with("no2Data", $no2Averages)
             ->with("o3Data", $o3Averages)
             ->with("labels", $labels)
+            ->with("latestDate", Carbon::parse($latestDate)->format('d-m-Y')) // Pass the latest date to the view
             ->render();
     }
 }

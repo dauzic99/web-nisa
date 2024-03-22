@@ -93,7 +93,7 @@
         var no2Data = @json(array_values($no2Data)); // Array of NO2 values for the month
         var o3Data = @json(array_values($o3Data)); // Array of O3 values for the month
         // console.log(pm10Data);
-
+        var latestDate = @json($latestDate);
 
         // Create the PM10 chart
         lineChart(labels, [{
@@ -102,27 +102,27 @@
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
-        }], "detailChartPm", "PM10 Levels Over Time of Today");
+        }], "detailChartPm", "PM10 Levels Over Time of " + latestDate);
         lineChart(labels, [{
             label: "CO",
             data: coData,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
-        }], "detailChartCO", "CO Levels Over Time of Today");
+        }], "detailChartCO", "CO Levels Over Time of " + latestDate);
         lineChart(labels, [{
             label: "NO2",
             data: no2Data,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
-        }], "detailChartNO2", "NO2 Levels Over Time of Today");
+        }], "detailChartNO2", "NO2 Levels Over Time of " + latestDate);
         lineChart(labels, [{
             label: "O3",
             data: o3Data,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
-        }], "detailChartO3", "O3 Levels Over Time of Today");
+        }], "detailChartO3", "O3 Levels Over Time of " + latestDate);
     });
 </script>

@@ -8,22 +8,7 @@
             </div>
             <div class="modal-body">
                 <h3 class="modal-isi" id="mymodal">{{ $faculty->name }}</h3>
-                <h5> kualitas udara "SEDANG" dengan parameter :
-                </h5>
-                <ul style="margin-left: 30px;">
-                    <li id="pm10" data-value="{{ $data['data']['PM 10'] }}">
-                        PM10: {{ $data['data']['PM 10'] }}
-                    </li>
-                    <li id="co" data-value="{{ $data['data']['CO'] }}">
-                        CO : {{ $data['data']['CO'] }}
-                    </li>
-                    <li id="no2" data-value="{{ $data['data']['NO2'] }}">
-                        NO2 : {{ $data['data']['NO2'] }}
-                    </li>
-                    <li id="o3" data-value="{{ $data['data']['O3'] }}">
-                        O3 : {{ $data['data']['O3'] }}
-                    </li>
-                </ul>
+
                 <hr>
                 <div class="row">
                     <div class="col-12">

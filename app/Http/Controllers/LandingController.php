@@ -20,9 +20,55 @@ class LandingController extends Controller
     public function index(AntaresService $antares)
     {
         $faculties = Faculty::all();
-        $datas = $antares->fetchLatestData();
+        $data = $antares->fetchLatestData();
+        $ozoneISPU = $this->calculateISPU('O3', $data['data']['Ozon']);
+        $pm10ISPU = $this->calculateISPU('PM10', $data['data']['PM10']);
+        $no2ISPU = $this->calculateISPU('NO2', $data['data']['NO2']);
+        $coISPU = $this->calculateISPU('CO', $data['data']['CO']);
+        $maxISPU = max($ozoneISPU, $pm10ISPU, $no2ISPU, $coISPU);
+
+        $datas = $antares->fetchData();
+        $minOzon = PHP_FLOAT_MAX;
+        $maxOzon = PHP_FLOAT_MIN;
+        $minPM10 = PHP_FLOAT_MAX;
+        $maxPM10 = PHP_FLOAT_MIN;
+        $minNO2 = PHP_FLOAT_MAX;
+        $maxNO2 = PHP_FLOAT_MIN;
+        $minCO = PHP_FLOAT_MAX;
+        $maxCO = PHP_FLOAT_MIN;
+
+        // Iterate over each data entry in the array
+        foreach ($datas as $entry) {
+            $entryd = $entry['data'];
+
+            // Update min and max values for Ozon
+            $minOzon = min($minOzon, $entryd['Ozon']);
+            $maxOzon = max($maxOzon, $entryd['Ozon']);
+
+            // Update min and max values for PM10
+            $minPM10 = min($minPM10, $entryd['PM10']);
+            $maxPM10 = max($maxPM10, $entryd['PM10']);
+
+            // Update min and max values for NO2
+            $minNO2 = min($minNO2, $entryd['NO2']);
+            $maxNO2 = max($maxNO2, $entryd['NO2']);
+
+            // Update min and max values for CO
+            $minCO = min($minCO, $entryd['CO']);
+            $maxCO = max($maxCO, $entryd['CO']);
+        }
         return view('landing.pages.index', [
-            'faculties' => $faculties
+            'faculties' => $faculties,
+            'data' => $data,
+            'maxISPU' => $maxISPU,
+            'minOzon' => $minOzon,
+            'maxOzon' => $maxOzon,
+            'minPM10' => $minPM10,
+            'maxPM10' => $maxPM10,
+            'minNO2' => $minNO2,
+            'maxNO2' => $maxNO2,
+            'minCO' => $minCO,
+            'maxCO' => $maxCO,
         ]);
     }
 
@@ -34,8 +80,8 @@ class LandingController extends Controller
 
         // Initialize arrays to store daily data for each parameter
         // Initialize arrays to store sums and counts for calculating averages
-        $pm10Sums = $coSums = $no2Sums = $o3Sums = [];
-        $pm10Counts = $coCounts = $no2Counts = $o3Counts = [];
+        $pm10Sums = $coSums = $no2Sums = $OzonSums = [];
+        $pm10Counts = $coCounts = $no2Counts = $OzonCounts = [];
 
         // Determine the latest date from the dataset
         $latestDate = Carbon::createFromFormat('d-m-Y H:i:s', collect($datas)->max('timestamp'))->format('Y-m-d');
@@ -50,29 +96,29 @@ class LandingController extends Controller
                 $hourKey = $dateTime->format('H');
 
                 // Sum the data for this hour
-                $pm10Sums[$hourKey] = ($pm10Sums[$hourKey] ?? 0) + ($d['data']['PM 10'] ?? 0);
+                $pm10Sums[$hourKey] = ($pm10Sums[$hourKey] ?? 0) + ($d['data']['PM10'] ?? 0);
                 $coSums[$hourKey] = ($coSums[$hourKey] ?? 0) + ($d['data']['CO'] ?? 0);
                 $no2Sums[$hourKey] = ($no2Sums[$hourKey] ?? 0) + ($d['data']['NO2'] ?? 0);
-                $o3Sums[$hourKey] = ($o3Sums[$hourKey] ?? 0) + ($d['data']['O3'] ?? 0);
+                $OzonSums[$hourKey] = ($OzonSums[$hourKey] ?? 0) + ($d['data']['Ozon'] ?? 0);
 
                 // Count the data points for this hour
                 $pm10Counts[$hourKey] = ($pm10Counts[$hourKey] ?? 0) + 1;
                 $coCounts[$hourKey] = ($coCounts[$hourKey] ?? 0) + 1;
                 $no2Counts[$hourKey] = ($no2Counts[$hourKey] ?? 0) + 1;
-                $o3Counts[$hourKey] = ($o3Counts[$hourKey] ?? 0) + 1;
+                $OzonCounts[$hourKey] = ($OzonCounts[$hourKey] ?? 0) + 1;
             }
         }
 
         ksort($pm10Sums);
         ksort($coSums);
         ksort($no2Sums);
-        ksort($o3Sums);
+        ksort($OzonSums);
 
         // Calculate averages
         $pm10Averages = [];
         $coAverages = [];
         $no2Averages = [];
-        $o3Averages = [];
+        $OzonAverages = [];
         $labels = [];
 
         foreach ($pm10Sums as $hour => $sum) {
@@ -80,8 +126,9 @@ class LandingController extends Controller
             $pm10Averages[] = $sum / $pm10Counts[$hour];
             $coAverages[] = $coSums[$hour] / $coCounts[$hour];
             $no2Averages[] = $no2Sums[$hour] / $no2Counts[$hour];
-            $o3Averages[] = $o3Sums[$hour] / $o3Counts[$hour];
+            $OzonAverages[] = $OzonSums[$hour] / $OzonCounts[$hour];
         }
+
 
         return View::make("landing.modals.detail")
             ->with("faculty", $faculty)
@@ -90,9 +137,55 @@ class LandingController extends Controller
             ->with("pm10Data", $pm10Averages)
             ->with("coData", $coAverages)
             ->with("no2Data", $no2Averages)
-            ->with("o3Data", $o3Averages)
+            ->with("OzonData", $OzonAverages)
             ->with("labels", $labels)
             ->with("latestDate", Carbon::parse($latestDate)->format('d-m-Y')) // Pass the latest date to the view
             ->render();
+    }
+
+    public function calculateISPU($pollutant, $concentration)
+    {
+        $ispuTable = [
+            'O3' => [
+                [0, 0.164, 0, 100],
+                [0.165, 0.204, 101, 199],
+                [0.205, 0.404, 200, 299],
+                [0.405, 0.504, 300, 399],
+                [0.505, 0.604, 400, 499],
+            ],
+            'PM10' => [
+                [0, 50, 0, 50],
+                [51, 150, 51, 100],
+                [151, 350, 101, 199],
+                [351, 420, 200, 299],
+                [421, 500, 300, 399],
+            ],
+            'NO2' => [
+                [0, 0.53, 0, 100],
+                [0.54, 0.649, 101, 199],
+                [0.65, 1.249, 200, 299],
+                [1.25, 1.649, 300, 399],
+                [1.65, 2.049, 400, 499],
+            ],
+            'CO' => [
+                [0, 4.4, 0, 50],
+                [4.5, 9.4, 51, 100],
+                [9.5, 12.4, 101, 199],
+                [12.5, 15.4, 200, 299],
+                [15.5, 30.4, 300, 399],
+            ],
+        ];
+
+        $table = $ispuTable[$pollutant];
+
+        foreach ($table as $range) {
+            [$C_low, $C_high, $I_low, $I_high] = $range;
+
+            if ($concentration >= $C_low && $concentration <= $C_high) {
+                return ($concentration - $C_low) / ($C_high - $C_low) * ($I_high - $I_low) + $I_low;
+            }
+        }
+
+        return null;
     }
 }

@@ -22,7 +22,7 @@ class Faculty extends Model
     public function getISPU()
     {
         $latestReading = $this->readings->sortByDesc('created_at')->first();
-        $ispu = $latestReading->PM10 + $latestReading->NO2 + $latestReading->O3 + $latestReading->CO;
+        $ispu = $latestReading->PM10 + $latestReading->NO2 + $latestReading->Ozon + $latestReading->CO;
         return $ispu;
     }
 

@@ -29,7 +29,7 @@ class AntaresService
      */
     public function fetchData()
     {
-        $response = $this->client->request('GET', '~/antares-cse/antares-id/AQWM/weather_airQuality_nodeCore?fu=1&drt=2&ty=4');
+        $response = $this->client->request('GET', '~/antares-cse/antares-id/AQWM/weather_airQuality_nodeCore_teknik?fu=1&drt=2&ty=4');
         $datas =  json_decode($response->getBody()->getContents(), true);
         $filteredData = collect($datas['m2m:list'])
             ->map(function ($item) {
@@ -62,7 +62,7 @@ class AntaresService
     public function fetchLatestData()
     {
         // Adjust header for this specific request
-        $response = $this->client->request('GET', '~/antares-cse/antares-id/AQWM/weather_airQuality_nodeCore/la', [
+        $response = $this->client->request('GET', '~/antares-cse/antares-id/AQWM/weather_airQuality_nodeCore_teknik/la', [
             'headers' => [
                 'Content-Type' => 'application/json;ty=4'
             ]

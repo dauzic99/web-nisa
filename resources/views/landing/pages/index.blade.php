@@ -19,7 +19,7 @@
 
 @section('content')
     <!-- Content
-                                                                                                                                                                                                                                                                                                                                                                                                  ============================================= -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ============================================= -->
     <section id="content">
         <div class="content-wrap p-0">
 
@@ -73,16 +73,28 @@
                                                             <h5 class="fw-normal mb-1">{{ $faculty->name }}</h5>
                                                             <div class="line my-2"></div>
                                                             <div>
+                                                                @php
+                                                                    if ($maxISPU <= 50) {
+                                                                        $status = 'Baik';
+                                                                    } elseif ($maxISPU <= 100) {
+                                                                        $status = 'Sedang';
+                                                                    } elseif ($maxISPU <= 200) {
+                                                                        $status = 'Tidak Sehat';
+                                                                    } elseif ($maxISPU <= 300) {
+                                                                        $status = 'Sangat Tidak Sehat';
+                                                                    } else {
+                                                                        $status = 'Berbahaya';
+                                                                    }
+                                                                @endphp
                                                                 <h7 class="fw-normal mb-1">Nilai ISPU:
-                                                                    {{ $faculty->getISPU() }}</h7>
+                                                                    {{ $maxISPU }} ({{ $status }})</h7>
                                                             </div>
+
                                                             <div>
                                                                 <h7 class="fw-normal mb-1">
-                                                                    Tanggal:{{ $faculty->getLatestDate() }}</h7>
+                                                                    Tanggal:{{ $data['timestamp'] }}</h7>
                                                             </div>
-                                                            <div>
-                                                                <h7 class="fw-normal mb-1">Kriteria: Sedang</h7>
-                                                            </div>
+
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <button
@@ -119,11 +131,19 @@
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
+            var minOzon = @json($minOzon);
+            var maxOzon = @json($maxOzon);
+            var minPM10 = @json($minPM10);
+            var maxPM10 = @json($maxPM10);
+            var minNO2 = @json($minNO2);
+            var maxNO2 = @json($maxNO2);
+            var minCO = @json($minCO);
+            var maxCO = @json($maxCO);
             var labels = [
                 "PM10",
                 "CO",
                 "NO2",
-                "O3"
+                "Ozon"
             ];
             var dataTest = [{
                     label: "PPM",
@@ -144,7 +164,7 @@
 
             var dataBuruk = [{
                     label: "PPM",
-                    data: [20.5, 30, 70.5, 50.6],
+                    data: [maxPM10, maxCO, maxNO2, maxOzon],
                     backgroundColor: ['#009ef7',
                         '#50CD89',
                         '#F1416C',
@@ -160,7 +180,7 @@
             ];
             var dataBaik = [{
                     label: "PPM",
-                    data: [20.5, 30, 70.5, 50.6],
+                    data: [minPM10, minCO, minNO2, minOzon],
                     backgroundColor: ['#009ef7',
                         '#50CD89',
                         '#F1416C',

@@ -21,7 +21,7 @@
                                         <th>PM10</th>
                                         <th>CO</th>
                                         <th>NO2</th>
-                                        <th>O3</th>
+                                        <th>Ozon</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,10 +29,10 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $d['timestamp'] }}</td>
-                                            <td>{{ $d['data']['PM 10'] }}</td>
+                                            <td>{{ $d['data']['PM10'] }}</td>
                                             <td>{{ $d['data']['CO'] }}</td>
                                             <td>{{ $d['data']['NO2'] }}</td>
-                                            <td>{{ $d['data']['O3'] }}</td>
+                                            <td>{{ $d['data']['Ozon'] }}</td>
                                         </tr>
                                     @empty
                                     @endforelse
@@ -49,7 +49,7 @@
                         </canvas>
                     </div>
                     <div class="col-md-12">
-                        <canvas id="detailChartO3">
+                        <canvas id="detailChartOzon">
                         </canvas>
                     </div>
                     <div class="col-md-12">
@@ -76,11 +76,9 @@
         var pm10Data = @json(array_values($pm10Data)); // Array of PM10 values for the month
         var coData = @json(array_values($coData)); // Array of CO values for the month
         var no2Data = @json(array_values($no2Data)); // Array of NO2 values for the month
-        var o3Data = @json(array_values($o3Data)); // Array of O3 values for the month
-        // console.log(pm10Data);
+        var OzonData = @json(array_values($OzonData)); // Array of Ozon values for the month
         var latestDate = @json($latestDate);
 
-        // Create the PM10 chart
         lineChart(labels, [{
             label: "PM10",
             data: pm10Data,
@@ -103,11 +101,11 @@
             tension: 0.1
         }], "detailChartNO2", "NO2 Levels Over Time of " + latestDate);
         lineChart(labels, [{
-            label: "O3",
-            data: o3Data,
+            label: "Ozon",
+            data: OzonData,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
             tension: 0.1
-        }], "detailChartO3", "O3 Levels Over Time of " + latestDate);
+        }], "detailChartOzon", "Ozon Levels Over Time of " + latestDate);
     });
 </script>

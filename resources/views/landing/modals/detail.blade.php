@@ -9,6 +9,7 @@
             <div class="modal-body">
                 <h3 class="modal-isi" id="mymodal">{{ $faculty->name }}</h3>
 
+
                 <hr>
                 <div class="row">
                     <div class="col-12">
@@ -40,6 +41,19 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-12">
+                        <h4>Hasil Klasifikasi data terakhir</h4>
+                        <ul style="margin-left: 10px;">
+                            <li style="margin-left: 10px;">Predikat : {{ $classificationResult['label'] }}</li>
+                            <li style="margin-left: 10px;">Frekuensi : {{ $classificationResult['frequency'] }}</li>
+                            <li style="margin-left: 10px;">Iterasi : {{ $classificationResult['iterations'] }}</li>
+                            <li style="margin-left: 10px;">Jarak Terdekat :
+                                {{ implode(', ', $classificationResult['nearest_distances']) }}</li>
+                        </ul>
                     </div>
                 </div>
                 <hr>

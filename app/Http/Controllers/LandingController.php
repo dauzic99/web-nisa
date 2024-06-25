@@ -77,7 +77,6 @@ class LandingController extends Controller
         $faculty = Faculty::findOrFail($request->id);
         $data = $antares->fetchLatestData();
         $datas = $antares->fetchData();
-
         // Initialize arrays to store daily data for each parameter
         // Initialize arrays to store sums and counts for calculating averages
         $pm10Sums = $coSums = $no2Sums = $OzonSums = [];
@@ -130,6 +129,35 @@ class LandingController extends Controller
         }
 
 
+        // Prepare input data for KNN classification
+        $knnInputData = [
+            $data['data']['PM10'], // Using AQI for classification
+            $data['data']['CO'],
+            $data['data']['NO2'],
+            $data['data']['Ozon']
+        ];
+
+        // Define the training dataset
+        $trainingDataset = [
+            [25, 0, 0, 0.005],   // Example within range 1-50
+            [75, 5, 2, 0.02],    // Example within range 51-100
+            [150, 10, 5, 0.1],   // Example within range 101-200
+            [250, 20, 10, 0.15], // Example within range 201-300
+            [350, 30, 15, 0.2],  // Example within range 301+
+        ];
+
+        // Define the corresponding labels for each training data point
+        $labels = [
+            'Baik',                // Label for example within range 1-50
+            'Sedang',              // Label for example within range 51-100
+            'Tidak Sehat',         // Label for example within range 101-200
+            'Sangat Tidak Sehat',  // Label for example within range 201-300
+            'Berbahaya',           // Label for example within range 301+
+        ];
+
+
+        $classificationResult = $this->knnClassify($knnInputData, $trainingDataset, $labels);
+
         return View::make("landing.modals.detail")
             ->with("faculty", $faculty)
             ->with("data", $data)
@@ -139,8 +167,55 @@ class LandingController extends Controller
             ->with("no2Data", $no2Averages)
             ->with("OzonData", $OzonAverages)
             ->with("labels", $labels)
+            ->with("classificationResult", $classificationResult)
             ->with("latestDate", Carbon::parse($latestDate)->format('d-m-Y')) // Pass the latest date to the view
             ->render();
+    }
+
+    function knnClassify($data, $dataset, $labels, $k = 3)
+    {
+        $distances = [];
+        $iterations = 0;
+
+        // Calculate the Euclidean distance between the input data and all data points in the dataset
+        foreach ($dataset as $index => $point) {
+            $distance = 0;
+            foreach ($point as $i => $value) {
+                $distance += pow($data[$i] - $value, 2);
+                $iterations++;
+            }
+            $distances[] = sqrt($distance);
+        }
+
+        // Sort distances and get the indices of the k nearest neighbors
+        asort($distances);
+        $nearestNeighbors = array_slice(array_keys($distances), 0, $k, true);
+
+        // Count the frequency of each label in the nearest neighbors
+        $frequency = [];
+        foreach ($nearestNeighbors as $index) {
+            $label = $labels[$index];
+            if (isset($frequency[$label])) {
+                $frequency[$label]++;
+            } else {
+                $frequency[$label] = 1;
+            }
+        }
+
+        // Determine the most frequent label (mode) among the nearest neighbors
+        arsort($frequency);
+        $mostFrequentLabel = array_key_first($frequency);
+        $mostFrequentCount = $frequency[$mostFrequentLabel];
+
+        // Gather the distances of the nearest neighbors
+        $nearestDistances = array_intersect_key($distances, array_flip($nearestNeighbors));
+
+        return [
+            'label' => $mostFrequentLabel,
+            'frequency' => $mostFrequentCount,
+            'iterations' => $iterations,
+            'nearest_distances' => $nearestDistances
+        ];
     }
 
     public function calculateISPU($pollutant, $concentration)
